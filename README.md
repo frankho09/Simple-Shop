@@ -1,9 +1,8 @@
 # simple-shop
 
 ### Website Preview
-```
-https://vuetify-simpleshop.netlify.app/
-```
+[Simple Shop]([https://link-url-here.org](https://vuetify-simpleshop.netlify.app/))
+
 ## Project setup
 ```
 npm install
