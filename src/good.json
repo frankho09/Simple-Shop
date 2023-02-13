@@ -1,0 +1,32 @@
+[
+    {
+      "name": "Pen",
+      "price": 1.90,
+      "src": "mdi-pen"
+    },
+    {
+      "name": "Pineapple",
+      "price": 50.50,
+      "src": "mdi-fruit-pineapple"
+    },
+    {
+      "name": "Apple",
+      "price": 5.50,
+      "src": "mdi-food-apple"
+    },
+    {
+      "name": "Lie",
+      "price": 200,
+      "src": "mdi-cake"
+    },
+    {
+      "name": "Magic Bean",
+      "price": 10000,
+      "src": "mdi-sack"
+    },
+    {
+      "name": "Lucky Clover",
+      "price": 10,
+      "src": "mdi-clover"
+    }
+  ]
