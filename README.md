@@ -1,7 +1,7 @@
 # simple-shop
 
 ### Website Preview
-[Simple Shop]([https://link-url-here.org](https://vuetify-simpleshop.netlify.app/))
+[Simple Shop](https://vuetify-simpleshop.netlify.app/)
 
 ## Project setup
 ```
