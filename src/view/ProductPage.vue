@@ -55,7 +55,6 @@ export default {
       this.$emit('homeCart', this.cart)
       this.quantity[item.name] = ''
       this.cart[this.good[index].name] = [index, 0]
-      console.log(this.cart)
     }
   }
 }
