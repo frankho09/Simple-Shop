@@ -105,7 +105,7 @@ export default {
     checkout () {
       this.cart = {}
       this.showCart = false
-      this.cartItemNum == 0
+      this.cartItemNum = 0
     }
   }
 }
