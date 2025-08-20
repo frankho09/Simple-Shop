@@ -14,7 +14,7 @@
         <router-view :good="good" @homeCart="homeCart"/>
         <v-dialog
           v-model="showCart"
-          width="700"
+          width="100%"
         >
           <v-card>
             <v-card-title class="text-h5 grey lighten-2">

@@ -15,7 +15,17 @@
                       <v-col cols="6" class="mt-12">
                         <p class="white--text boldText">Price:$ {{(item.price).toFixed(2)}}</p>
                         <v-text-field label="Quantity" class="labelStyle" dark v-model="quantity[item.name]"></v-text-field>
-                        <v-btn large color="error" @click="addToCart(i, item)">ADD TO CART</v-btn>
+                        <v-btn
+                          :large="i < 3"
+                          color="error"
+                          @click="addToCart(i, item)"
+                          :disabled="i >= 3"
+                        >
+                          ADD TO CART
+                        </v-btn>
+                        <div v-if="i >= 3" class="not-for-sale-text">
+                          Not for sale, only available in lucky items
+                        </div>
                       </v-col>
                     </v-row>
                   </v-container>
@@ -66,6 +76,7 @@ export default {
 }
 .cardTheme{
   background-color: #FFA726;
+  height: 22vw;
 }
 .fullWidth{
   width: 100%;
@@ -76,5 +87,17 @@ export default {
 }
 .labelStyle{
   font-weight: bold !important;
+}
+
+.not-for-sale-text {
+  color: #d32f2f;           /* sharp red */
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-align: center;
+  margin-top: 10px;
+  border: 2px solid #d32f2f;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(211,47,47,0.15);
+  padding: 6px 12px;
 }
 </style>

@@ -7,7 +7,8 @@
           <v-card class="fullWidth cardTheme" height="100%" v-if="!showBox">
               <v-card-title class="justify-center white--text">Today's Lucky Item</v-card-title>
               <v-card-actions class="justify-center mt-12">
-                <v-btn  @click="luckyBtn" v-if="!showBox" x-large>CLICK ME!</v-btn>
+                <v-btn @click="luckyBtn" v-if="!showBox && !showFirework" x-large>CLICK ME!</v-btn>
+                <div v-if="showFirework" class="firework-animation"></div>
               </v-card-actions>
             </v-card>
             <v-card v-else>
@@ -74,6 +75,7 @@ export default {
   },
   data: () => ({
     showBox: false,
+    showFirework: false,
     random: 0,
     quantity: {
       random: '',
@@ -89,9 +91,14 @@ export default {
   }),
   methods: {
     luckyBtn () {
-      this.showBox = true
-      this.random = 3 + Math.floor(Math.random() * (this.good.length - 3))
-      this.cart[this.good[this.random].name] = [this.random, 0]
+      this.showFirework = true
+      console.log(this.showFirework)
+      setTimeout(() => {
+        this.showFirework = false
+        this.showBox = true
+        this.random = 3 + Math.floor(Math.random() * (this.good.length - 3))
+        this.cart[this.good[this.random].name] = [this.random, 0]
+      }, 1500)
     },
     clickRandom () {
       this.cart[this.good[this.random].name] = [this.random, parseInt(this.quantity.random)]
@@ -137,5 +144,12 @@ export default {
 }
 .labelStyle{
   font-weight: bold !important;
+}
+.firework-animation {
+  width: 15vw;
+  height: 12vw;
+  margin: -40px auto 0;
+  background: url('@/assets/firework.gif') top no-repeat;
+  background-size: contain;
 }
 </style>
