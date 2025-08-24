@@ -1,24 +1,35 @@
 # simple-shop
 
 ### Website Preview
+
 [Simple Shop](https://vuetify-simpleshop.netlify.app/)
 
 ## Project setup
+
 ```
 npm install
 ```
 
 ### Compiles and hot-reloads for development
+
 ```
 npm run serve
 ```
 
 ### Compiles and minifies for production
+
 ```
 npm run build
 ```
 
 ### Lints and fixes files
+
 ```
 npm run lint
 ```
+
+---
+
+## Note on the Payment Page
+
+The Payment page was developed with the assistance of Cursor. 
