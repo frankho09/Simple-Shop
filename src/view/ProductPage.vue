@@ -5,32 +5,12 @@
         <v-card>
           <v-container>
             <v-row class="cardTheme rounded">
-              <v-col cols="6">
-                <div class="white--text boldText ml-5">{{ item.name }}</div>
-                <v-icon size="200">{{ item.src }}</v-icon>
-              </v-col>
-              <v-col cols="6" class="mt-12">
-                <p class="white--text boldText">
-                  Price:$ {{ item.price.toFixed(2) }}
-                </p>
-                <v-text-field
-                  label="Quantity"
-                  class="labelStyle"
-                  dark
-                  v-model="quantity[item.name]"
-                ></v-text-field>
-                <v-btn
-                  :large="i < 3"
-                  color="error"
-                  @click="addToCart(i, item)"
-                  :disabled="i >= 3"
-                >
-                  ADD TO CART
-                </v-btn>
-                <div v-if="i >= 3" class="not-for-sale-text">
-                  Not for sale, only available in lucky items
-                </div>
-              </v-col>
+              <GoodItemCard
+                :item="item"
+                v-model="quantity[item.name]"
+                isProductPage
+                :clickFunction="() => addToCart(i, item)"
+              />
             </v-row>
           </v-container>
         </v-card>
@@ -40,12 +20,15 @@
 </template>
 
 <script>
+import GoodItemCard from "../shared/GoodItemCard.vue";
 export default {
+  components: {
+    GoodItemCard,
+  },
   props: {
     good: Array,
   },
   data: () => ({
-    // quantity: ['', '', '', '', '', ''],
     quantity: {
       Pen: "",
       Pineapple: "",
@@ -83,7 +66,7 @@ export default {
 }
 .cardTheme {
   background-color: #ffa726;
-  height: 22vw;
+  height: 100%;
 }
 .fullWidth {
   width: 100%;

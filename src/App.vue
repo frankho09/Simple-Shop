@@ -20,12 +20,18 @@
           </div>
           <div class="nav-right">
             <li>
-              <div class="nav2" @click="showCart = true">
+              <div class="nav2 hidden-sm-and-down" @click="showCart = true">
                 <v-icon color="white" v-if="cartItemNum == 0"
                   >mdi-cart-outline</v-icon
                 >
                 <v-icon color="white" v-else>mdi-cart</v-icon>
                 {{ " Cart (" + cartItemNum + ")" }}
+              </div>
+              <div class="nav2 d-md-none" @click="showCart = true">
+                <v-icon color="white" v-if="cartItemNum == 0"
+                  >mdi-cart-outline</v-icon
+                >
+                <v-icon color="white" v-else>mdi-cart</v-icon>
               </div>
             </li>
           </div>
@@ -37,7 +43,7 @@
           @paymentSuccess="handlePaymentSuccess"
         />
         <v-dialog v-model="showCart" width="100%">
-          <v-card>
+          <v-card class="d-none d-sm-block">
             <v-card-title class="text-h5 grey lighten-2">
               <p>Cart</p>
               <v-spacer />
@@ -95,6 +101,85 @@
                 Continue Shopping
               </v-btn>
               <v-btn color="primary" @click="goToPayment">
+                Proceed to Payment
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+          <v-card class="d-sm-none">
+            <v-card-title class="text-h5 grey lighten-2">
+              <p>Cart</p>
+              <v-spacer />
+              <v-icon large @click="showCart = false">mdi-close</v-icon>
+            </v-card-title>
+            <v-card-text v-if="Object.keys(this.cart).length !== 0">
+              <v-row>
+                <v-col cols="3" class="pa-2"
+                  ><p class="text-caption">Product</p></v-col
+                >
+                <v-col cols="2" class="pa-2"
+                  ><p class="text-caption">Price</p></v-col
+                >
+                <v-col cols="2" class="pa-2"
+                  ><p class="text-caption">Qty</p></v-col
+                >
+                <v-col cols="3" class="pa-2"
+                  ><p class="text-caption">Total</p></v-col
+                >
+              </v-row>
+              <v-row
+                class="mx-2"
+                v-for="(value, index) in this.cart"
+                :key="index"
+              >
+                <v-col cols="3" class="pa-2"
+                  ><p class="text-caption">{{ index }}</p></v-col
+                >
+                <v-col cols="2" class="pa-2"
+                  ><p class="text-caption">{{ good[value[0]].price }}</p></v-col
+                >
+                <v-col cols="2" class="pa-2"
+                  ><p class="text-caption">{{ value[1] }}</p></v-col
+                >
+                <v-col cols="3" class="pa-2"
+                  ><p class="text-caption">
+                    {{ "$" + (good[value[0]].price * value[1]).toFixed(2) }}
+                  </p></v-col
+                >
+                <v-col cols="2"
+                  ><v-btn
+                    small
+                    class="mt-n2"
+                    color="grey lighten-2"
+                    @click="removeItem(index, value)"
+                    ><v-icon>mdi-close</v-icon></v-btn
+                  ></v-col
+                >
+              </v-row>
+              <v-row class="mx-2">
+                <v-col cols="8 d-flex justify-end">Total Price:</v-col>
+                <v-col cols="4">{{ "$" + total.toFixed(2) }}</v-col>
+              </v-row>
+            </v-card-text>
+            <v-card-text v-else>
+              <h3 class="d-flex justify-center mt-2">
+                Your Shopping Cart is empty
+              </h3>
+              <v-icon class="d-flex justify-center" x-large
+                >mdi-cart-outline</v-icon
+              >
+            </v-card-text>
+            <v-divider class="mt-2"></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="grey lighten-2"
+                @click="showCart = false"
+                x-small
+                class="mr-2"
+              >
+                Continue Shopping
+              </v-btn>
+              <v-btn color="primary" x-small @click="goToPayment">
                 Proceed to Payment
               </v-btn>
             </v-card-actions>

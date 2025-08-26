@@ -1,15 +1,23 @@
 <template>
   <v-container class="mainTheme fill-height" fluid>
     <v-card class="mainTheme fill-height">
-      <v-img class="rounded-lg" height="300px" src="../assets/cover.png" />
-      <v-row class="pt-4">
+      <v-img
+        class="rounded-lg"
+        :height="imageHeight"
+        src="../assets/cover.png"
+      />
+      <v-row class="pt-4 ml-1 mr-1 hidden-sm-and-down">
         <v-col cols="3">
-          <v-card class="fullWidth cardTheme" height="100%" v-if="!showBox">
+          <v-card class="fullWidth cardTheme" height="270px" v-if="!showBox">
             <v-card-title class="justify-center white--text"
-              >Today's Lucky Item</v-card-title
+              >Try Your Luck</v-card-title
             >
             <v-card-actions class="justify-center mt-12">
-              <v-btn @click="luckyBtn" v-if="!showBox && !showFirework" x-large
+              <v-btn
+                @click="luckyBtn"
+                v-if="!showBox && !showFirework"
+                x-large
+                class="GreenColor"
                 >CLICK ME!</v-btn
               >
               <div v-if="showFirework" class="firework-animation"></div>
@@ -20,98 +28,111 @@
               >Lucky Item</v-card-title
             >
             <v-container>
-              <v-row class="cardTheme">
-                <v-col cols="6">
-                  <div class="white--text boldText ml-5">
-                    {{ good[random].name }}
-                  </div>
-                  <v-icon size="150">{{ good[random].src }}</v-icon>
-                </v-col>
-                <v-col cols="6">
-                  <p class="white--text boldText">
-                    Price:$ {{ good[random].price.toFixed(2) }}
-                  </p>
-                  <v-text-field
-                    label="Quantity"
-                    class="labelStyle"
-                    dark
-                    v-model="quantity.random"
-                  ></v-text-field>
-                  <v-btn large color="error" @click="clickRandom"
-                    >ADD TO CART</v-btn
-                  >
-                </v-col>
+              <v-row class="cardTheme luckyCardColumnTheme">
+                <GoodItemCard
+                  :item="good[random]"
+                  v-model="quantity.random"
+                  :clickFunction="clickRandom"
+                  isLuckyItem
+                />
               </v-row>
             </v-container>
           </v-card>
         </v-col>
         <v-col cols="9">
-          <v-card>
+          <v-card class="fullWidth cardTheme sideTheme" height="270px">
             <v-card-title class="justify-center white--text boldText cardTheme"
               >Recommend Goods</v-card-title
             >
             <v-container>
-              <v-row class="cardTheme">
-                <v-col cols="2">
-                  <div class="white--text boldText ml-5">
-                    {{ good[0].name }}
-                  </div>
-                  <v-icon size="150">{{ good[0].src }}</v-icon>
-                </v-col>
-                <v-col cols="2">
-                  <p class="white--text boldText">
-                    Price:$ {{ good[0].price.toFixed(2) }}
-                  </p>
-                  <v-text-field
-                    label="Quantity"
-                    class="labelStyle"
-                    dark
-                    v-model="quantity.goodOne"
-                  ></v-text-field>
-                  <v-btn large color="error" @click="clickOne"
-                    >ADD TO CART</v-btn
-                  >
-                </v-col>
-                <v-col cols="2">
-                  <div class="white--text boldText ml-5">
-                    {{ good[1].name }}
-                  </div>
-                  <v-icon size="150">{{ good[1].src }}</v-icon>
-                </v-col>
-                <v-col cols="2">
-                  <p class="white--text boldText">
-                    Price:$ {{ good[1].price.toFixed(2) }}
-                  </p>
-                  <v-text-field
-                    label="Quantity"
-                    class="labelStyle"
-                    dark
-                    v-model="quantity.goodTwo"
-                  ></v-text-field>
-                  <v-btn large color="error" @click="clickTwo"
-                    >ADD TO CART</v-btn
-                  >
-                </v-col>
-                <v-col cols="2">
-                  <div class="white--text boldText ml-5">
-                    {{ good[2].name }}
-                  </div>
-                  <v-icon size="150">{{ good[2].src }}</v-icon>
-                </v-col>
-                <v-col cols="2">
-                  <p class="white--text boldText">
-                    Price:$ {{ good[2].price.toFixed(2) }}
-                  </p>
-                  <v-text-field
-                    label="Quantity"
-                    class="labelStyle"
-                    dark
-                    v-model="quantity.goodThree"
-                  ></v-text-field>
-                  <v-btn large color="error" @click="clickThree"
-                    >ADD TO CART</v-btn
-                  >
-                </v-col>
+              <v-row class="cardColumnTheme">
+                <GoodItemCard
+                  :item="good[0]"
+                  v-model="quantity.goodOne"
+                  :clickFunction="clickOne"
+                />
+                <GoodItemCard
+                  :item="good[1]"
+                  v-model="quantity.goodTwo"
+                  :clickFunction="clickTwo"
+                />
+                <GoodItemCard
+                  :item="good[2]"
+                  v-model="quantity.goodThree"
+                  :clickFunction="clickThree"
+                />
+              </v-row>
+            </v-container>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row class="pt-4 ml-1 mr-1 d-md-none">
+        <v-col cols="12">
+          <v-card class="fullWidth cardTheme" height="270px" v-if="!showBox">
+            <v-card-title class="justify-center white--text"
+              >Try Your Luck</v-card-title
+            >
+            <v-card-actions class="justify-center mt-12">
+              <v-btn
+                @click="luckyBtn"
+                v-if="!showBox && !showFirework"
+                x-large
+                class="GreenColor"
+                >CLICK ME!</v-btn
+              >
+              <div v-if="showFirework" class="firework-animation"></div>
+            </v-card-actions>
+          </v-card>
+          <v-card v-else>
+            <v-card-title class="justify-center white--text cardTheme"
+              >Lucky Item</v-card-title
+            >
+            <v-container>
+              <v-row class="cardTheme luckyCardColumnTheme">
+                <GoodItemCard
+                  :item="good[random]"
+                  v-model="quantity.random"
+                  :clickFunction="clickRandom"
+                  isLuckyItem
+                />
+              </v-row>
+            </v-container>
+          </v-card>
+        </v-col>
+        <v-col cols="12">
+          <v-card class="fullWidth cardTheme pb-5" v-if="!showBox">
+            <v-card-title class="justify-center white--text"
+              >Pandora's Box</v-card-title
+            >
+            <v-card-actions class="justify-center">
+              <v-btn @click="pandoraBtn" class="customDisabled" x-large
+                >DO NOT CLICK!</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </v-col>
+        <v-col cols="12">
+          <v-card class="fullWidth cardTheme sideTheme" height="270px">
+            <v-card-title class="justify-center white--text boldText cardTheme"
+              >Recommend Goods</v-card-title
+            >
+            <v-container>
+              <v-row class="cardColumnTheme">
+                <GoodItemCard
+                  :item="good[0]"
+                  v-model="quantity.goodOne"
+                  :clickFunction="clickOne"
+                />
+                <GoodItemCard
+                  :item="good[1]"
+                  v-model="quantity.goodTwo"
+                  :clickFunction="clickTwo"
+                />
+                <GoodItemCard
+                  :item="good[2]"
+                  v-model="quantity.goodThree"
+                  :clickFunction="clickThree"
+                />
               </v-row>
             </v-container>
           </v-card>
@@ -122,7 +143,11 @@
 </template>
 
 <script>
+import GoodItemCard from "../shared/GoodItemCard.vue";
 export default {
+  components: {
+    GoodItemCard,
+  },
   props: {
     good: Array,
   },
@@ -145,13 +170,15 @@ export default {
   methods: {
     luckyBtn() {
       this.showFirework = true;
-      console.log(this.showFirework);
       setTimeout(() => {
         this.showFirework = false;
         this.showBox = true;
         this.random = 3 + Math.floor(Math.random() * (this.good.length - 3));
         this.cart[this.good[this.random].name] = [this.random, 0];
       }, 1500);
+    },
+    pandoraBtn() {
+      window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_target"); // Nostalgia trick
     },
     clickRandom() {
       this.cart[this.good[this.random].name] = [
@@ -181,14 +208,64 @@ export default {
       this.cart.Apple = [2, 0];
     },
   },
+  computed: {
+    imageHeight() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return "90px";
+        case "sm":
+          return "150px";
+        case "md":
+          return "200px";
+        default:
+          return "300px"; // Default height
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
+.customDisabled {
+  background-color: rgba(0, 0, 0, 0.12) !important;
+  cursor: not-allowed;
+}
+.container {
+  max-width: 100%;
+}
+.v-container.mainTheme,
+.v-card.mainTheme {
+  max-height: 200vh;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.v-card.sideTheme {
+  max-height: 200vh;
+  overflow-y: overflow;
+}
+
+.v-container.mainTheme::-webkit-scrollbar,
+.v-card.mainTheme::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+.GreenColor {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
 .mainTheme {
   background-color: rgb(80, 75, 75);
 }
 .cardTheme {
+  background-color: #ffa726;
+}
+.cardColumnTheme {
+  border-radius: 0px 0px 4px 4px;
+  margin-bottom: 10px;
+  background-color: #ffa726;
+}
+.luckyCardColumnTheme {
+  border-radius: 0px 0px 4px 4px;
   background-color: #ffa726;
 }
 .fullWidth {
@@ -208,5 +285,16 @@ export default {
   margin: -40px auto 0;
   background: url("@/assets/firework.gif") top no-repeat;
   background-size: contain;
+}
+
+.lucky-transition-enter-active,
+.lucky-transition-leave-active {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.lucky-transition-enter-from,
+.lucky-transition-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
 }
 </style>
