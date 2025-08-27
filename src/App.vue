@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <v-main>
+      <v-app-bar class="pa-0" app>
         <ul class="navBar">
           <div class="nav-left">
             <li>
@@ -36,6 +36,8 @@
             </li>
           </div>
         </ul>
+      </v-app-bar>
+      <v-main>
         <router-view
           :good="good"
           :cart="cart"
@@ -250,8 +252,14 @@ export default {
   display: unset;
 }
 
+.v-toolbar :deep(.v-toolbar__content) {
+  margin: 0;
+  padding: 0 !important;
+}
 .navBar {
   list-style: none;
+  height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
